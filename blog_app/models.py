@@ -35,7 +35,7 @@ class Article(models.Model):
         verbose_name_plural = "Articles"
         db_table = "Article"
 
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name="Articles")
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.all().first().id)
     content = models.ForeignKey(Content,on_delete=models.SET_DEFAULT, default=1, verbose_name="Article Content")
     tag = models.CharField(max_length=50, verbose_name="Article Tag", default="")

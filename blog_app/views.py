@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Article
+from gc import get_objects
+from django.shortcuts import render, get_object_or_404
+from .models import Article, Category
 from account_app.models import Profile
 
 # Create your views here.
@@ -17,4 +18,10 @@ def articleDetail(request, pk):
 def allArticles(request):
     return render(request, "blog_app/allArticles.html", context={
         "Articles": Article.objects.all()
+    })
+
+def allCategories(request, title = "Coding"):
+    category = get_object_or_404(Category, title = title)
+    return render(request, "blog_app/allArticles.html", context={
+        "Articles": category.Articles.all()
     })
