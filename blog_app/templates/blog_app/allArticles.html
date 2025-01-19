@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load render_partial %}
 
 {% block title %}
     All Articles
@@ -39,7 +40,7 @@
                                             <img src={{ article.image.url }} alt="">
                                         </div>
                                         <div class="down-content">
-                                            <span>Lifestyle</span>
+                                            <span>{{ article.content.title }}</span>
                                             <a href={{ article.get_url }}><h4>{{ article.tag }}</h4></a>
                                             <ul class="post-info">
                                                 <li><a href={{ article.get_author_url }}>{{ article.author }}</a></li>
@@ -74,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                {% include "includes/sidebar.html" %}
+                {% render_partial "home_app:sidebar" %}
             </div>
         </div>
     </section>

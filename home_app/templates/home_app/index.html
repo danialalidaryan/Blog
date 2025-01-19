@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load render_partial %}
 {% load static %}
+
 
 {% block title %}
     Home
@@ -36,7 +38,7 @@
                                         {% endif %}
                                     {% endfor %}
                                     <li><a>{{ article.created }}</a></li>
-                                    <li><a>{{ article.updated }}</a></li>
+                                    <li><a>{{ article.content.title}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -106,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                {% include "includes/sidebar.html" %}
+                {% render_partial 'home_app:sidebar' %}
             </div>
         </div>
     </section>
