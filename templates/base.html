@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ***** Head ***** -->
+    <title>{% block title %}{% endblock %}</title>
+    {% include "includes/head_reference.html" %}
+</head>
+
+<body>
+<!-- ***** Preloader ***** -->
+{% include "includes/preloader.html" %}
+
+<!-- ***** Header ***** -->
+{% include "includes/header.html" %}
+
+<!-- ***** Page Content ***** -->
+{% block content %}{% endblock %}
+
+
+<footer>
+    <!-- ***** footer ***** -->
+    {% include "includes/footer.html" %}
+</footer>
+
+<!-- ***** Script ***** -->
+{% include "includes/script_links.html" %}
+
+</body>
+</html>
