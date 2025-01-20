@@ -12,22 +12,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% block Home_active %}{% endblock %}">
-                        <a class="nav-link" href={% url "home_app:Home" %}>Home
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == "Home" %}active{% endif %}"
+                           href={% url "home_app:Home" %}>Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item {% block aboutUs_active %}{% endblock %}">
+                    <li class="nav-item">
                         <a class="nav-link" href="">About Us</a>
                     </li>
-                    <li class="nav-item {% block allArticles_active %}{% endblock %}">
-                        <a class="nav-link" href={% url "blog:allArticles" %}>Blog Entries</a>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == "allArticles" %}active{% endif %}"
+                           href={% url "blog:allArticles" 1 %}>All Articles</a>
                     </li>
-                    <li class="nav-item {% block details_active %}{% endblock %}">
-                        <a class="nav-link" href={% url "blog:ArticleDetail" 1 %}>Post Details</a>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == "ArticleDetail" %}active{% endif %}"
+                           href={% url "blog:ArticleDetail" 1 %}>Post Details</a>
                     </li>
-                    <li class="nav-item {% block contactUs_active %}{% endblock %}">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
                     </li>
                     {% if request.user.is_anonymous %}
                         <li class="nav-item">
