@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Profile, FootballPlayer, Test
+from .models import *
 
-
-admin.site.register(Profile)
-admin.site.register(FootballPlayer)
-admin.site.register(Test)
-# Register your models here.
+admin.site.register(Users)
+admin.site.register(Religion)
+admin.site.register(PhoneNumber)
+admin.site.register(EmailAddress)
+admin.site.register(Role)

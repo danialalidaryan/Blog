@@ -13,6 +13,8 @@ SECRET_KEY = 'django-insecure-(afvk(7fosm&++&dz)qpc!0g9hsvrzd!iiy!#f8!pq&25be8t*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = "account_app.Users"
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -25,9 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # myApps
-    'home_app',
+    # 'home_app',
     'account_app',
-    'blog_app',
+    # 'blog_app',
     # cleanup
     "django_cleanup.apps.CleanupConfig",
     #django render partial
@@ -59,7 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Config.context_processors.get_recent_articles',
+                # 'Config.context_processors.get_recent_articles',
             ],
         },
     },
