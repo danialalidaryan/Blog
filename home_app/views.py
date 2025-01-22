@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from blog_app.models import Article, Category, Content
-from account_app.models import Profile
+from accounting.models import Profile
 
 def showHome(request):
     return render(request, 'home_app/index.html', context={

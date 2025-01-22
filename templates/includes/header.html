@@ -34,11 +34,11 @@
                     </li>
                     {% if request.user.is_anonymous %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "account_app:Login" %}">Login</a>
+                            <a class="nav-link" href="{% url "accounting:Login" %}">Login</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "account_app:Logout" %}">Logout</a>
+                            <a class="nav-link" href="{% url "accounting:Logout" %}">Logout</a>
                         </li>
                     {% endif %}
                     {% if request.user.is_staff %}

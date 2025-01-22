@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-(afvk(7fosm&++&dz)qpc!0g9hsvrzd!iiy!#f8!pq&25be8t*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = "account_app.Users"
+AUTH_USER_MODEL = "accounting.CustomeUser"
 
 ALLOWED_HOSTS = []
 
@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # myApps
     # 'home_app',
-    'account_app',
+    'accounting',
     # 'blog_app',
     # cleanup
     "django_cleanup.apps.CleanupConfig",

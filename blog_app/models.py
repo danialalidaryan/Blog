@@ -51,6 +51,6 @@ class Article(models.Model):
         return reverse("blog:ArticleDetail", kwargs={"pk": self.id})
 
     def get_author_url(self):
-        return reverse("account_app:UserProfile",
+        return reverse("accounting:UserProfile",
                        kwargs={"slug": slugify(self.author.first_name + " " + self.author.username)})
 

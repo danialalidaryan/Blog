@@ -21,7 +21,7 @@
 #                 user = User.objects.create(username=username, password=password, email=email)
 #                 messages.success(request, "The user has created")
 #             else:
-#                 return render(request, 'account_app/loginForm.html', context)
+#                 return render(request, 'accounting/loginForm.html', context)
 #
 #         elif username and password:
 #             user = authenticate(request, username=username, password=password)
@@ -30,9 +30,9 @@
 #                 return redirect('home_app:Home')
 #             else:
 #                 messages.success(request, "The user has not found!")
-#                 return redirect("account_app:Login")
+#                 return redirect("accounting:Login")
 #
-#     return render(request, "account_app/loginForm.html", context={})
+#     return render(request, "accounting/loginForm.html", context={})
 #
 #
 # def user_logout(request):
@@ -61,6 +61,6 @@
 #
 #
 # def userProfile(request, slug):
-#     return render(request, "account_app/userProfile.html", context={
+#     return render(request, "accounting/userProfile.html", context={
 #         "user": Profile.objects.all().filter(slug=slug)[0]
 #     })

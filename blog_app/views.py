@@ -1,7 +1,7 @@
 from gc import get_objects
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
-from account_app.models import Profile
+from accounting.models import Profile
 from django.core.paginator import Paginator
 
 # Create your views here.
