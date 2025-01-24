@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% load render_partial %}
+
+{% block title %}
+    All Articles
+{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>Recent Posts</h4>
+                            <h2>Our Recent Blog Entries</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="all-blog-posts">
+                        <div class="row">
+                            {% for article in Articles %}
+                                <div class="col-lg-6">
+                                    <div class="blog-post">
+                                        <div class="blog-thumb">
+                                            <img src={{ article.image.url }} alt="">
+                                        </div>
+                                        <div class="down-content">
+                                            <span>{{ article.content.title }}</span>
+                                            <a href={{ article.get_url }}><h4>{{ article.tag }}</h4></a>
+                                            <ul class="post-info">
+                                                <li><a href={{ article.get_author_url }}>{{ article.author }}</a></li>
+                                                <li><a>{{ article.created }}</a></li>
+                                                <li><a>{{ article.updated }}</a></li>
+                                            </ul>
+                                            <p>{{ article.body }}</p>
+                                            <div class="post-options">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <ul class="post-tags">
+                                                            <li><i class="fa fa-tags"></i></li>
+                                                            {% for category in article.category.all %}
+                                                                <li><a>{{ category }}</a>,</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="col-lg-12">
+                                {% if Articles.has_other_pages %}
+                                    <ul class="page-numbers">
+                                        {% if Articles.has_previous %}
+                                            <li><a href="{% url "blog:allArticles" Articles.previous_page_number %}"><i
+                                                    class="fa fa-angle-double-left"></i></a></li>
+                                        {% endif %}
+                                        {% for page in Articles.paginator.page_range %}
+                                            {% if page == Articles.number %}
+                                                <li class="active"><a
+                                                        href="{% url "blog:allArticles" page %}">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a href="{% url "blog:allArticles" page %}">{{ page }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if Articles.has_next %}
+                                            <li><a href="{% url "blog:allArticles" Articles.next_page_number %}"><i
+                                                    class="fa fa-angle-double-right"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                {% else %}
+                                    <ul class="page-numbers">
+                                        <li class="active"><a
+                                                href="{% url "blog:allArticles" Articles.number %}">{{ Articles.number }}</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% render_partial "Base:sidebar" %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

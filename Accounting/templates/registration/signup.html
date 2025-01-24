@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <style>
+        #About {
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main">
+
+    <!-- Sign up form -->
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Sign up</h2>
+                    <form method="POST" class="register-form" id="register-form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {% if field.field.widget.input_type == 'select' %}
+                                <div class="btn-group dropup">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="btn{{ field.name }}" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        {{ field.name }}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {% for choice in field.field.choices %}
+                                            <a class="dropdown-item" id="{{ field.name }}"
+                                               onclick="updateDropdown(this,value = '{{ choice.1 }}')">{{ choice.1 }}</a>
+                                            <div class="dropdown-divider"></div>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" value="" id="inp{{ field.name }}" name="{{ field.name }}"/>
+                                </div>
+
+                                <br/><br/>
+                            {% elif field.name == "About" %}
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            {% else %}
+                                <div class="form-group">
+                                    <label for="{{ field.name }}"><i class="{{ field.label }}"></i></label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small>{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit">Submit</button>
+
+                    </form>
+                </div>
+                <div class="signup-image">
+                    <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
+                    <a href="#" class="signup-image-link">I am already member</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- JS -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+<script>
+    function updateDropdown(obj, value) {
+        if (obj.id === "Gender") {
+            document.getElementById("inpGender").value = value === "Male" ? "male" : "female"
+            document.getElementById("btnGender").textContent = value
+        } else {
+            document.getElementById("inpReligion").value = value
+            document.getElementById("btnReligion").textContent = value
+        }
+    }
+
+</script>
+</body>
+</html>

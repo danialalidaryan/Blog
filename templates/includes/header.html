@@ -13,8 +13,8 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == "Home" %}active{% endif %}"
-                           href={% url "home_app:Home" %}>Home
+                        <a class="nav-link {% if request.resolver_match.url_name == "home" %}active{% endif %}"
+                           href={% url "Base:home" %}>Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -22,23 +22,23 @@
                         <a class="nav-link" href="">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == "allArticles" %}active{% endif %}"
-                           href={% url "blog:allArticles" 1 %}>All Articles</a>
+{#                        <a class="nav-link {% if request.resolver_match.url_name == "allArticles" %}active{% endif %}"#}
+{#                           href={% url "blog:allArticles" 1 %}>All Articles</a>#}
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == "ArticleDetail" %}active{% endif %}"
-                           href={% url "blog:ArticleDetail" 1 %}>Post Details</a>
+{#                        <a class="nav-link {% if request.resolver_match.url_name == "ArticleDetail" %}active{% endif %}"#}
+{#                           href={% url "blog:ArticleDetail" 1 %}>Post Details</a>#}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact Us</a>
                     </li>
                     {% if request.user.is_anonymous %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "accounting:Login" %}">Login</a>
+                            <a class="nav-link" href="{% url "Accounting:signin" %}">Login</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "accounting:Logout" %}">Logout</a>
+                            <a class="nav-link" href="{% url "Accounting:signout" %}">Logout</a>
                         </li>
                     {% endif %}
                     {% if request.user.is_staff %}

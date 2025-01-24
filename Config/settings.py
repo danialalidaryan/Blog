@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-(afvk(7fosm&++&dz)qpc!0g9hsvrzd!iiy!#f8!pq&25be8t*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = "accounting.CustomeUser"
+AUTH_USER_MODEL = "Accounting.CustomeUser"
 
 ALLOWED_HOSTS = []
 
@@ -27,9 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # myApps
-    # 'home_app',
-    'accounting',
-    # 'blog_app',
+    'Base.apps.BaseAppConfig',
+    'Accounting.apps.AccountAppConfig',
+    # 'Post',
     # cleanup
     "django_cleanup.apps.CleanupConfig",
     #django render partial

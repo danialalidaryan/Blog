@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به سیستم</title>
+</head>
+<body>
+    <h2>ورود به سیستم</h2>
+
+    <!-- نمایش خطاهای فرم -->
+    {% if form.non_field_errors %}
+        <div style="color: red;">
+            <ul>
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- فرم ورود -->
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">نام کاربری:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            <label for="id_password">رمز عبور:</label>
+            {{ form.password }}
+        </div>
+        <button type="submit">ورود</button>
+    </form>
+
+    <!-- لینک ثبت‌نام -->
+    <p>اگر حساب کاربری ندارید، <a href="{% url 'Accounting:signup' %}">اینجا ثبت‌نام کنید</a>.</p>
+</body>
+</html>
