@@ -14,7 +14,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == "Home" %}active{% endif %}"
-                           href={% url "home_app:Home" %}>Home
+                           href={% url "Base:Home" %}>Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -34,11 +34,11 @@
                     </li>
                     {% if request.user.is_anonymous %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "accounting:Login" %}">Login</a>
+                            <a class="nav-link" href="{% url "Accounting:Login" %}">Login</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url "accounting:Logout" %}">Logout</a>
+                            <a class="nav-link" href="{% url "Accounting:Logout" %}">Logout</a>
                         </li>
                     {% endif %}
                     {% if request.user.is_staff %}

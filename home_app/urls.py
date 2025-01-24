@@ -1,8 +1,0 @@
-from django.urls import path
-from . import views
-
-app_name = "home_app"
-urlpatterns = [
-    path("", views.showHome, name="Home"),
-    path("sidebar", views.sidebar, name="sidebar")
-]
