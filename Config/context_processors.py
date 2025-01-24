@@ -1,4 +1,4 @@
-from blog_app.models import Article
+from Post.models import Article
 
 def get_recent_articles(request):
     return {

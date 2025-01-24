@@ -27,9 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # myApps
-    # 'Base.apps.HomeAppConfig',
+    'Base.apps.BaseAppConfig',
     'Accounting.apps.AccountAppConfig',
-    # 'blog_app',
+    # 'Post',
     # cleanup
     "django_cleanup.apps.CleanupConfig",
     #django render partial
