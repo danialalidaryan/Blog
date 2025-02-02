@@ -147,7 +147,7 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
     Image = models.ImageField(
         null=True,
         blank=True,
-        upload_to="accounts/profile-images",
+        upload_to="Accounting/profile-images",
         verbose_name="عکس کاربر",
         db_column="عکس",
         help_text="عکس کاربر را وارد کنید",

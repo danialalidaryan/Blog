@@ -3,12 +3,13 @@ from .forms import signupForm
 from .models import EmailAddress
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from .models import CustomeUser
 
 
-# def userProfile(request, slug):
-#     return render(request, "Accounting/userProfile.html", context={
-#         "user": Profile.objects.all().filter(slug=slug)[0]
-#     })
+def userProfile(request, pk):
+    return render(request, "Accounting/Profile.html", context={
+        "user": CustomeUser.objects.all().get(UserName=pk)
+    })
 
 def signup_View(request):
     if request.user.is_authenticated:
@@ -45,11 +46,11 @@ def signin_View(request):
 
             if user is not None:
                 login(request, user)
-                return HttpResponse("Log in successful")  # صفحه اصلی پس از ورود
+                return redirect("Base:home")
             else:
                 form.add_error(None, "نام کاربری یا رمز عبور اشتباه است.")
         else:
-            pass
+            print("Form is not valid")
     else:
         form = AuthenticationForm()
 

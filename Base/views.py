@@ -1,5 +1,4 @@
 from django.shortcuts import render, HttpResponse
-# from Post.models import Article, Category, Content
 
 def showHome(request):
     return render(request, 'Base/index.html')
