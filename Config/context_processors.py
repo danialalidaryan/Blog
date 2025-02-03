@@ -1,6 +1,6 @@
-from Post.models import Article
+from Post.models import Post
 
-def get_recent_articles(request):
+def get_recent_posts(request):
     return {
-        "recent_articles" : Article.objects.order_by("-created")[:3]
+        "recent_posts" : Post.objects.order_by("-Created")[:3]
     }

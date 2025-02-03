@@ -12,34 +12,49 @@ class Category(models.Model):
     def __str__(self):
         return self.Title
 
-class Tag(models.Model):
+
+class PostTag(models.Model):
     Title = models.CharField(unique=True, max_length=50)
 
     def __str__(self):
         return self.Title
 
-class Social(models.Model):
-    Title = models.CharField(max_length=50, unique=True)
-    Address = models.CharField(max_length=255, null=True)
-    Comment = models.TextField(max_length=500, null=True)
+
+class SocialAddress(models.Model):
+    Title = models.CharField(max_length=50)
+    Post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True, blank=True, related_name="Social")
+    Address = models.CharField(max_length=255, null=True, blank=True)
+    Comment = models.TextField(max_length=500, null=True, blank=True)
+
+    def __str__(self):
+        return self.Title
+
 
 class Post(models.Model):
     class Meta:
         verbose_name = "Post"
         verbose_name_plural = "Posts"
         db_table = "Post"
-
+    Title = models.CharField(max_length=100, unique=True, default="None")
     Category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name="Posts", null=True)
-    Author = models.ForeignKey(CustomeUser, on_delete=models.CASCADE, default=CustomeUser.objects.all().first().NationalCode)
-    Tag = models.ManyToManyField(Tag, verbose_name="Post Content", null=True)
-    Social = models.ManyToManyField(Social, verbose_name="Post Social Address", null=True)
-    Comment = models.TextField(max_length=255, verbose_name="Post Information")
+    Author = models.ForeignKey(
+        CustomeUser,
+        null=True,
+        blank=True,
+        verbose_name="نویسنده",
+        db_column="نویسنده",
+        help_text="این پست برای کدام کاربر است",
+        on_delete=models.CASCADE,
+        related_name="Posts")
+    Tag = models.ManyToManyField(PostTag, verbose_name="Post Content")
+    Comment = models.TextField(verbose_name="Post Information")
     Image = models.ImageField(upload_to="Post/images", default="blog/images/default.jpg", verbose_name="Post Image")
+    Banner = models.ImageField(upload_to="Post/images", verbose_name="Post Banner", null=True, blank=True )
     Created = models.DateTimeField(auto_now_add=True, verbose_name="Create time of Post")
     Updated = models.DateTimeField(auto_now=True, verbose_name="Update time of Post")
 
     def __str__(self):
-        return self.Category.Title + " - " + self.Author.UserName
+        return self.Title + " - " + self.Author.UserName
 
     def get_url(self):
         return reverse("Post:postDetail", kwargs={"pk": self.id})

@@ -22,12 +22,12 @@
                         <a class="nav-link" href="">About Us</a>
                     </li>
                     <li class="nav-item">
-{#                        <a class="nav-link {% if request.resolver_match.url_name == "allArticles" %}active{% endif %}"#}
-{#                           href={% url "blog:allArticles" 1 %}>All Articles</a>#}
+                        <a class="nav-link {% if request.resolver_match.url_name == "allPosts" %}active{% endif %}"
+                           href={% url "Post:allPosts" 1 %}>All Posts</a>
                     </li>
                     <li class="nav-item">
-{#                        <a class="nav-link {% if request.resolver_match.url_name == "ArticleDetail" %}active{% endif %}"#}
-{#                           href={% url "blog:ArticleDetail" 1 %}>Post Details</a>#}
+                        <a class="nav-link {% if request.resolver_match.url_name == "PostDetail" %}active{% endif %}"
+                           href={% url "Post:postDetail" 1 %}>Post Details</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact Us</a>

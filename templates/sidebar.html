@@ -16,11 +16,11 @@
                     </div>
                     <div class="content">
                         <ul>
-                            {% for article in recent_articles %}
+                            {% for post in recent_posts%}
                                 <li>
-                                    <a href={{ article.get_url }}>
-                                        <h5>{{ article.tag }}</h5>
-                                        <span>{{ article.created }}</span>
+                                    <a href={{ post.get_url }}>
+                                        <h5>{{ post.Title }}</h5>
+                                        <span>{{ post.Created }}</span>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -35,8 +35,8 @@
                     </div>
                     <div class="content">
                         <ul>
-                            {% for cat in Category %}
-                                <li><a href="{% url "blog:allCategories" cat.title 1 %}">{{ cat.title }}</a></li>
+                            {% for category in Category %}
+                                <li><a href="{% url "Post:allCategories" category.Title|urlencode 3 %}">{{ category.Title }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -49,8 +49,8 @@
                     </div>
                     <div class="content">
                         <ul>
-                            {% for content in Contents %}
-                                <li><a href="#">{{ content.title }}</a></li>
+                            {% for tag in Tag %}
+                                <li><a href="#">{{ tag.Title }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>
