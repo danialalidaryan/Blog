@@ -15,7 +15,7 @@
                     <div class="col-lg-12">
                         <div class="text-content">
                             <h4>Categories</h4>
-                            <h2>{{ title }}</h2>
+                            <h2>{{ Post_Title }}</h2>
                         </div>
                     </div>
                 </div>
@@ -29,28 +29,33 @@
                 <div class="col-lg-8">
                     <div class="all-blog-posts">
                         <div class="row">
-                            {% for article in Articles %}
+                            {% for post in Posts %}
                                 <div class="col-lg-6">
                                     <div class="blog-post">
                                         <div class="blog-thumb">
-                                            <img src={{ article.image.url }} alt="">
+                                            <img src={{ post.Banner.url }} alt="">
                                         </div>
                                         <div class="down-content">
-                                            <span>{{ article.content.title }}</span>
-                                            <a href={{ article.get_url }}><h4>{{ article.tag }}</h4></a>
+                                            <span>{{ post.Category }}</span>
+                                            <a href={{ post.get_url }}><h4>{{ post.Title }}</h4></a>
                                             <ul class="post-info">
-                                                <li><a href={{ article.get_author_url }}>{{ article.author }}</a></li>
-                                                <li><a>{{ article.created }}</a></li>
-                                                <li><a>{{ article.updated }}</a></li>
+                                                <li><a href={{ post.get_author_url }}>{{ post.Author.get_fullname }}</a>
+                                                </li>
+                                                <li><a>{{ post.Created }}</a></li>
+                                                <li><a>{{ post.Updated }}</a></li>
                                             </ul>
-                                            <p>{{ article.body }}</p>
+                                            <p>{{ post.Comment }}</p>
                                             <div class="post-options">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <ul class="post-tags">
                                                             <li><i class="fa fa-tags"></i></li>
-                                                            {% for category in article.category.all %}
-                                                                <li><a>{{ category }}</a>,</li>
+                                                            {% for tag in post.Tag.all %}
+                                                                {% if forloop.last %}
+                                                                    <li><a>{{ tag }}</a></li>
+                                                                {% else %}
+                                                                    <li><a>{{ tag }}</a>,</li>
+                                                                {% endif %}
                                                             {% endfor %}
                                                         </ul>
                                                     </div>
@@ -61,34 +66,34 @@
                                 </div>
                             {% endfor %}
                             <div class="col-lg-12">
-                                {% if Articles.has_other_pages %}
+                                {% if Posts.has_other_pages %}
                                     <ul class="page-numbers">
-                                        {% if Articles.has_previous %}
+                                        {% if Posts.has_previous %}
                                             <li>
-                                                <a href="{% url "blog:allCategories" title Articles.previous_page_number %}"><i
+                                                <a href="{% url "Post:allCategories" Post_Title|urlencode Posts.previous_page_number %}"><i
                                                         class="fa fa-angle-double-left"></i></a></li>
                                         {% endif %}
-                                        {% for page in Articles.paginator.page_range %}
-                                            {% if page == Articles.number %}
+                                        {% for page in Posts.paginator.page_range %}
+                                            {% if page == Posts.number %}
                                                 <li class="active"><a
-                                                        href="{% url "blog:allCategories" title page %}">{{ page }}</a>
+                                                        href="{% url "Post:allCategories" Post_Title|urlencode page %}">{{ page }}</a>
                                                 </li>
                                             {% else %}
                                                 <li>
-                                                    <a href="{% url "blog:allCategories" title page %}">{{ page }}</a>
+                                                    <a href="{% url "Post:allCategories" Post_Title|urlencode page %}">{{ page }}</a>
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
-                                        {% if Articles.has_next %}
+                                        {% if Posts.has_next %}
                                             <li>
-                                                <a href="{% url "blog:allCategories" title Articles.next_page_number %}"><i
+                                                <a href="{% url "Post:allCategories" Post_Title|urlencode Posts.next_page_number %}"><i
                                                         class="fa fa-angle-double-right"></i></a></li>
                                         {% endif %}
                                     </ul>
                                 {% else %}
                                     <ul class="page-numbers">
                                         <li class="active"><a
-                                                href="{% url "blog:allCategories" title Articles.number %}">{{ Articles.number }}</a>
+                                                href="{% url "Post:allCategories" Post_Title|urlencode Posts.number %}">{{ Posts.number }}</a>
                                         </li>
                                     </ul>
                                 {% endif %}

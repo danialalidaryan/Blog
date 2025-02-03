@@ -1,31 +1,25 @@
-from gc import get_objects
-from django.shortcuts import render, get_object_or_404
-from .models import Article, Category
-from Accounting.models import Profile
+from django.shortcuts import render, get_object_or_404, HttpResponse
+from .models import Post, Category
+import urllib.parse
 from django.core.paginator import Paginator
 
-# Create your views here.
-
-app_name = "articleDetail"
-
-
-def articleDetail(request, pk = 1):
+def postDetail(request, pk = 1):
+    post = Post.objects.all().filter(id=pk)[0]
     return render(request, "Post/post-details.html", context={
-        "article": Article.objects.all().filter(id=pk)[0],
-        "Profiles": Profile.objects.all(),
-        "recentArticle": Article.objects.all().order_by('-created')[:3]
+        "post": post,
     })
 
-def allArticles(request, page = 1):
-    paginator = Paginator(Article.objects.all(), 2)
+def allPosts(request, page = 1):
+    paginator = Paginator(Post.objects.all(), 2)
     return render(request, "Post/allArticles.html", context={
-        "Articles": paginator.get_page(page),
+        "Posts": paginator.get_page(page),
     })
 
-def allCategories(request, title = "Coding", page = 1):
-    category = get_object_or_404(Category, title = title)
-    paginator = Paginator(category.Articles.all(), 2)
+def allCategories(request, title, page = 1):
+    decoded_title = urllib.parse.unquote(title)
+    category = get_object_or_404(Category, Title = decoded_title)
+    paginator = Paginator(category.Posts.all(), 2)
     return render(request, "Post/allCategories.html", context={
-        "Articles": paginator.get_page(page),
-        "title": title
+        "Posts": paginator.get_page(page),
+        "Post_Title": decoded_title
     })

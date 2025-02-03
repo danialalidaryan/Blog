@@ -29,9 +29,11 @@ INSTALLED_APPS = [
     # myApps
     'Base.apps.BaseAppConfig',
     'Accounting.apps.AccountAppConfig',
-    # 'Post',
+    'Post.apps.PostConfig',
+
     # cleanup
     "django_cleanup.apps.CleanupConfig",
+
     #django render partial
     'django_render_partial',
 
@@ -61,7 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'Config.context_processors.get_recent_articles',
+                'Config.context_processors.get_recent_posts',
             ],
         },
     },

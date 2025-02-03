@@ -20,8 +20,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-content">
-                            <h4>{{ article.content.title }}</h4>
-                            <h2>{{ article.tag }}</h2>
+                            <h4>{{ post.Category }}</h4>
+                            <h2>{{ post.Title }}</h2>
                         </div>
                     </div>
                 </div>
@@ -38,38 +38,41 @@
                             <div class="col-lg-12">
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <img src={{ article.image.url }} alt="">
+                                        <img src={{ post.Image.url }} alt="">
                                     </div>
                                     <div class="down-content">
-                                        {% for category in article.category.all %}
-                                            <span>| {{ category }}</span>
-                                        {% endfor %}
-                                        <a href="post-details.html"><h4>{{ article.tag }}</h4></a>
+                                        <span>{{ post.Category }}</span>
+                                        <a href="post-details.html"><h4>{{ post.Title }}</h4></a>
                                         <ul class="post-info">
-                                            {% for profile in Profiles %}
-                                                {% if article.author.username == profile.user.username %}
-                                                    <li><a href={{ profile.get_url }}>{{ article.author.username }}</a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <li><a>{{ article.created }}</a></li>
-                                            <li><a>{{ article.updated }}</a></li>
+                                            <li><a href={{ post.get_author_url }}>{{ post.Author.get_fullname }}</a></li>
+                                            <li><a>{{ post.Created }}</a></li>
+                                            <li><a>{{ post.Updated }}</a></li>
                                         </ul>
-                                        <p>{{ article.body }}</p>
+                                        <p>{{ post.Comment }}</p>
                                         <div class="post-options">
                                             <div class="row">
                                                 <div class="col-6">
                                                     <ul class="post-tags">
                                                         <li><i class="fa fa-tags"></i></li>
-                                                        <li><a href="#">Best Templates</a>,</li>
-                                                        <li><a href="#">TemplateMo</a></li>
+                                                        {% for tag in post.Tag.all %}
+                                                            {% if forloop.last %}
+                                                                <li><a>{{ tag }}</a></li>
+                                                            {% else %}
+                                                                <li><a>{{ tag }}</a>,</li>
+                                                            {% endif %}
+                                                        {% endfor %}
                                                     </ul>
                                                 </div>
                                                 <div class="col-6">
                                                     <ul class="post-share">
                                                         <li><i class="fa fa-share-alt"></i></li>
-                                                        <li><a href="#">Facebook</a>,</li>
-                                                        <li><a href="#"> Twitter</a></li>
+                                                            {% for social in post.Social.all %}
+                                                                {% if forloop.last %}
+                                                                    <li><a>{{ social }}</a></li>
+                                                                {% else %}
+                                                                    <li><a>{{ social }}</a>,</li>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                     </ul>
                                                 </div>
                                             </div>

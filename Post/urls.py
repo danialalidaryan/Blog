@@ -1,11 +1,9 @@
 from django.urls import path
-from unicodedata import category
-
+# from unicodedata import category
 from . import views
-
-app_name = "blog"
+app_name = "Post"
 urlpatterns = [
-    path("article/<int:pk>", views.articleDetail, name="ArticleDetail"),
-    path("article/lsit/<int:page>", views.allArticles, name="allArticles"),
-    path("category/<str:title>/<int:page>", views.allCategories, name="allCategories"),
+    path("<int:pk>", views.postDetail, name="postDetail"),
+    path("post/list/<int:page>", views.allPosts, name="allPosts"),
+    path("category/<path:title>/<int:page>", views.allCategories, name="allCategories"),
 ]

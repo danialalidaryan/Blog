@@ -1,56 +1,63 @@
-import datetime
-
 from django.db import models
-from django.contrib.auth.models import User
+from Accounting.models import CustomeUser
 from django.urls import reverse
-from django.utils.text import slugify
+
 
 # Create your models here.
 class Category(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    title = models.CharField(
+    Title = models.CharField(
         max_length=50
     )
 
     def __str__(self):
-        return self.title
-
-class Content(models.Model):
-    class Meta:
-        verbose_name = "محتوا"
-        verbose_name_plural = "محتوا ها"
-        ordering = ["created"]
+        return self.Title
 
 
-    title = models.CharField(max_length=25, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
+class PostTag(models.Model):
+    Title = models.CharField(unique=True, max_length=50)
 
     def __str__(self):
-        return self.title
+        return self.Title
 
-class Article(models.Model):
-    class Meta:
-        verbose_name = "Article"
-        verbose_name_plural = "Articles"
-        db_table = "Article"
 
-    category = models.ManyToManyField(Category, related_name="Articles")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.all().first().id)
-    content = models.ForeignKey(Content,on_delete=models.SET_DEFAULT, default=1, verbose_name="Article Content")
-    tag = models.CharField(max_length=50, verbose_name="Article Tag", default="")
-    body = models.TextField(max_length=255, verbose_name="Article Information")
-    image = models.ImageField(upload_to="blog/images", default="blog/images/default.jfif", verbose_name="Article Image")
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Create time of Article")
-    updated = models.DateTimeField(auto_now=True, verbose_name="Update time of Aricle")
+class SocialAddress(models.Model):
+    Title = models.CharField(max_length=50)
+    Post = models.ForeignKey("Post", on_delete=models.CASCADE, null=True, blank=True, related_name="Social")
+    Address = models.CharField(max_length=255, null=True, blank=True)
+    Comment = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self):
-        return self.content.title + " - " + self.author.username
+        return self.Title
+
+
+class Post(models.Model):
+    class Meta:
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
+        db_table = "Post"
+    Title = models.CharField(max_length=100, unique=True, default="None")
+    Category = models.ForeignKey(Category, on_delete=models.SET_NULL, related_name="Posts", null=True)
+    Author = models.ForeignKey(
+        CustomeUser,
+        null=True,
+        blank=True,
+        verbose_name="نویسنده",
+        db_column="نویسنده",
+        help_text="این پست برای کدام کاربر است",
+        on_delete=models.CASCADE,
+        related_name="Posts")
+    Tag = models.ManyToManyField(PostTag, verbose_name="Post Content")
+    Comment = models.TextField(verbose_name="Post Information")
+    Image = models.ImageField(upload_to="Post/images", default="blog/images/default.jpg", verbose_name="Post Image")
+    Banner = models.ImageField(upload_to="Post/images", verbose_name="Post Banner", null=True, blank=True )
+    Created = models.DateTimeField(auto_now_add=True, verbose_name="Create time of Post")
+    Updated = models.DateTimeField(auto_now=True, verbose_name="Update time of Post")
+
+    def __str__(self):
+        return self.Title + " - " + self.Author.UserName
 
     def get_url(self):
-        return reverse("blog:ArticleDetail", kwargs={"pk": self.id})
+        return reverse("Post:postDetail", kwargs={"pk": self.id})
 
     def get_author_url(self):
-        return reverse("Accounting:UserProfile",
-                       kwargs={"slug": slugify(self.author.first_name + " " + self.author.username)})
-
+        return reverse("Accounting:userProfile", kwargs={"pk": self.Author.UserName})

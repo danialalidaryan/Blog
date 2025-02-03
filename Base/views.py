@@ -1,10 +1,16 @@
 from django.shortcuts import render, HttpResponse
-# from Post.models import Article, Category, Content
+from Post.models import *
+
 
 def showHome(request):
-    return render(request, 'Base/index.html')
-    # return HttpResponse("this is Home")
+    Posts = Post.objects.all()
+    return render(request, 'Base/index.html', context={
+        "Posts": Posts,
 
-# def sidebar(request):
-#     return render(request, "sidebar.html", {"Category": Category.objects.all(),
-#                                             "Contents": Content.objects.all()})
+    })
+
+
+def sidebar(request):
+    Categories = Category.objects.all()
+    Tags = PostTag.objects.all()
+    return render(request, "sidebar.html", {"Category": Categories, "Tag": Tags})
