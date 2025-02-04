@@ -148,6 +148,7 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True,
         upload_to="Accounting/profile-images",
+        default="Accounting/profile-images/default.png",
         verbose_name="عکس کاربر",
         db_column="عکس",
         help_text="عکس کاربر را وارد کنید",
@@ -264,8 +265,6 @@ class EmailAddress(models.Model):
 
     def __str__(self):
         return self.Email
-
-
 
 class Role(models.Model):
     class Meta:

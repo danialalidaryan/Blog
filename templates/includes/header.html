@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             {% if request.user.is_authenticated %}
-                <p class="userName">{{ request.user }}</p>
+                <p class="userName">{{ request.user.get_fullname }}</p>
             {% else %}
                 <p class="userName">Blog Project</p>
             {% endif %}
@@ -35,6 +35,9 @@
                     {% if request.user.is_anonymous %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url "Accounting:signin" %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url "Accounting:signup" %}">Signup</a>
                         </li>
                     {% else %}
                         <li class="nav-item">

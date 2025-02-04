@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
-from .models import Post, Category
+from .models import Post, Category, PostTag
 import urllib.parse
 from django.core.paginator import Paginator
 
 def postDetail(request, pk = 1):
-    post = Post.objects.all().filter(id=pk)[0]
+    post = get_object_or_404(Post, id = pk)
     return render(request, "Post/post-details.html", context={
         "post": post,
     })
@@ -21,5 +21,16 @@ def allCategories(request, title, page = 1):
     paginator = Paginator(category.Posts.all(), 2)
     return render(request, "Post/allCategories.html", context={
         "Posts": paginator.get_page(page),
-        "Post_Title": decoded_title
+        "Post_Title": decoded_title,
+        "Header":"Categories"
+    })
+
+def allTags(request, title, page):
+    decoded_title = urllib.parse.unquote(title)
+    tag = get_object_or_404(PostTag, Title = decoded_title)
+    paginator = Paginator(tag.Posts.all(), 2)
+    return render(request, "Post/allCategories.html", context={
+        "Posts":paginator.get_page(page),
+        "Post_Title": title,
+        "Header": "Tags"
     })

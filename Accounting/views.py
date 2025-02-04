@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, HttpResponse
 from .forms import signupForm
 from .models import EmailAddress
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from .models import CustomeUser
 
 
@@ -10,6 +9,7 @@ def userProfile(request, pk):
     return render(request, "Accounting/Profile.html", context={
         "user": CustomeUser.objects.all().get(UserName=pk)
     })
+
 
 def signup_View(request):
     if request.user.is_authenticated:
@@ -25,36 +25,35 @@ def signup_View(request):
             user.save()
             Email.User = user
             Email.save()
-            return HttpResponse("Successful")
+            return redirect("Base:home")
         else:
             print(form.errors)
     else:
         form = signupForm()
     return render(request, "registration/signup.html", context={"form": form})
 
+
 def signin_View(request):
     if request.user.is_authenticated:
         return redirect("Base:home")
 
+    error = None
 
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect("Base:home")
-            else:
-                form.add_error(None, "نام کاربری یا رمز عبور اشتباه است.")
+        if user is not None:
+            login(request, user)
+            return redirect("Base:home")
         else:
-            print("Form is not valid")
-    else:
-        form = AuthenticationForm()
+            error = "نام کاربری یا رمز ورود اشتباه میباشد"
 
-    return render(request, 'account_app/test.html', {'form': form})
+    return render(request, 'registration/signin.html', context={
+        "Error":error,
+    })
+
 
 def signout_View(request):
     if request.user.is_authenticated:

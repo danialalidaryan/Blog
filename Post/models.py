@@ -46,7 +46,7 @@ class Post(models.Model):
         help_text="این پست برای کدام کاربر است",
         on_delete=models.CASCADE,
         related_name="Posts")
-    Tag = models.ManyToManyField(PostTag, verbose_name="Post Content")
+    Tag = models.ManyToManyField(PostTag, verbose_name="Post Content", related_name="Posts")
     Comment = models.TextField(verbose_name="Post Information")
     Image = models.ImageField(upload_to="Post/images", default="blog/images/default.jpg", verbose_name="Post Image")
     Banner = models.ImageField(upload_to="Post/images", verbose_name="Post Banner", null=True, blank=True )
@@ -61,3 +61,17 @@ class Post(models.Model):
 
     def get_author_url(self):
         return reverse("Accounting:userProfile", kwargs={"pk": self.Author.UserName})
+
+class Comment(models.Model):
+    User = models.ForeignKey(CustomeUser, on_delete=models.CASCADE)
+    Post = models.ForeignKey(Post,on_delete=models.CASCADE, related_name="Comments")
+    Body = models.TextField()
+    Parent = models.ForeignKey("self",on_delete=models.CASCADE, blank=True, null=True, related_name="Replies")
+    Created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        if self.Parent is not None:
+            return f"Reply to {self.Parent.User.UserName}"
+        else:
+            return f"{self.User.UserName} | {self.Body[:20]}"
+

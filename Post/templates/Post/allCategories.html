@@ -3,7 +3,7 @@
 {% load render_partial %}
 
 {% block title %}
-    All Articles
+    Filtered {{ Header }}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-content">
-                            <h4>Categories</h4>
+                            <h4>{{ Header }}</h4>
                             <h2>{{ Post_Title }}</h2>
                         </div>
                     </div>

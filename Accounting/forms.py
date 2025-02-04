@@ -18,7 +18,6 @@ class signupForm(UserCreationForm):
             'password2',
             'About',
             "Gender",
-            'Religion',
         ]
 
     UserName = forms.CharField(label="zmdi zmdi-account material-icons-name", required=True, widget=forms.TextInput(

@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ request.user.get_fullname }}</title>
+    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
     <style>
         body {
             margin-top: 20px;
@@ -72,9 +75,9 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                <li class="breadcrumb-item"><a href="{% url 'Base:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'Accounting:userProfile' user.UserName %}">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ request.user.get_fullname }}'s Profile</li>
             </ol>
         </nav>
         <!-- /Breadcrumb -->
@@ -84,7 +87,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                            <img src="{{ user.Image.url }}" alt="Admin"
                                  class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>John Doe</h4>
@@ -170,7 +173,7 @@
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Kenneth Valdez
+                                {{ user.get_fullname}}
                             </div>
                         </div>
                         <hr>
@@ -179,7 +182,7 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                fip@jukmuh.al
+                                {{ user.Email }}
                             </div>
                         </div>
                         <hr>
@@ -188,7 +191,7 @@
                                 <h6 class="mb-0">Phone</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                (239) 816-9029
+                                None
                             </div>
                         </div>
                         <hr>
@@ -197,7 +200,7 @@
                                 <h6 class="mb-0">Mobile</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                (320) 380-4539
+                                None
                             </div>
                         </div>
                         <hr>
@@ -206,7 +209,25 @@
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
+                                None
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Religion</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.Religion }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.Gender }}
                             </div>
                         </div>
                         <hr>
