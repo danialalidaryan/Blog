@@ -8,7 +8,6 @@
       rel="stylesheet">
 
 
-
 <!-- Bootstrap core CSS -->
 <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
 
@@ -19,6 +18,10 @@
 <link rel="stylesheet" href="{% static "css/owl.css" %}">
 
 <style>
+    body {
+        font-family: "Shabnam Medium";
+    }
+
     .userName {
         position: relative;
         font-weight: bold;
@@ -50,5 +53,49 @@
 
     #articleTag:hover {
         color: orangered;
+    }
+
+    #commentSec {
+        display: block;
+        width: 100%;
+        margin: 25px 0;
+    }
+
+    #commentSec p {
+        padding: 15px 25px;
+        background-color: #0080ff;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 18px;
+        word-spacing: 2px;
+    }
+
+    #commentSec a, #commentSec p {
+        text-decoration: none;
+        color: white;
+        transition: all .3s ease-in-out;
+    }
+
+    #commentSec a:hover {
+        color: #e3007f;
+    }
+
+    #commentParent {
+        position: relative;
+    }
+
+    #sendReply {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+    }
+    #sendReply:hover {
+        color: #e3007f;
+        font-size: 13px;
+    }
+    .replyForm{
+        display: none;
     }
 </style>
